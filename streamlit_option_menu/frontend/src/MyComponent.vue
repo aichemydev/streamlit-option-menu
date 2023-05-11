@@ -5,7 +5,8 @@
                 <a href="#" class="menu-title align-items-center mb-md-0 me-md-auto text-decoration-none"
                 :style="styleObjectToString(styles['menu-title'])"
                 >
-                    <i class="icon" :class="menuIcon" :style="styleObjectToString(styles['menu-icon'])"></i>
+                    <i v-if="typeMenuIcon === 'icon'" class="icon" :class="menuIcon" :style="styleObjectToString(styles['menu-icon'])"></i>
+                    <img v-if="typeMenuIcon === 'img'" :src="menuIcon" :style="styleObjectToString(styles['menu-icon'])"  alt="">
                     {{menuTitle}}
                 </a>
             <hr>
@@ -49,6 +50,7 @@ export default {
         const menuTitle = ref(props.args.menuTitle)
         const isHorizontal = props.args.orientation == "horizontal"
         const menuIcon = ref(props.args.menuIcon || "bi-menu-up")
+        const typeMenuIcon = ref("icon" || "img")
         menuIcon.value = getFullIconName(menuIcon.value)
         const icons = ref(props.args.icons || [])
         for (let i = 0; i < props.args.options.length; i++) {
